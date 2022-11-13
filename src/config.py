@@ -1,6 +1,7 @@
 import os
 import transformers
 
+# Created by Syed Umair Gillani; Umairgillani93@gmail.com
 DEVICE = 'cpu'
 MAX_LEN = 64
 TRAIN_BATCH_SIZE = 8

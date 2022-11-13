@@ -10,7 +10,7 @@ def loss_fn(outputs, targets):
     '''
     return nn.BCEWithLogitsLoss()(outputs, targets.view(-1,1))
 
-def train_fn(datal_loader, model,
+def train_fn(data_loader, model,
         optimizer, device, schedular):
 
     # train the model
@@ -18,6 +18,7 @@ def train_fn(datal_loader, model,
 
     for bi, data in tqdm(enumerate(data_loader), total=len(data_loader)):
         # start parsing from dataloader
+        #print(f'data: {data}')
         ids = data['ids']
         token_type_ids = data['token_type_ids']
         mask = data['mask']
@@ -33,7 +34,7 @@ def train_fn(datal_loader, model,
         # get model outputs
         outputs = model(
                 ids=ids,
-                mask=mask,
+                attention_mask=mask,
                 token_type_ids=token_type_ids
                 )
 
@@ -42,9 +43,9 @@ def train_fn(datal_loader, model,
         # apply backward pass
         loss.backward()
         # apply optimizer step-wise
-        optimzer.step()
+        optimizer.step()
         #  apply schedular step-wise
-        scheduar.step()
+        schedular.step()
 
 def eval_fn(data_loader, model, device):
     model.eval()
