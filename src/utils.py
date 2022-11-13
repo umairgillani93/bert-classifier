@@ -70,8 +70,5 @@ def eval_fn(data_loader, model, device):
             fin_targets.extend(targets.cpu().detech().numpy().tolist())
             fin_outputs.extend(torch.sigmoid(outputs).cpu().detech().numpy().tolist())
 
-    return fin_outputs fin_targets
+    return fin_outputs, fin_targets
             
-
-
-

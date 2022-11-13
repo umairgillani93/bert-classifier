@@ -18,6 +18,13 @@ class BertDataset:
         self.max_len = config.MAX_LEN
         #print('everything done')
 
+    def _getdata(self):
+        '''
+        return the data in required format
+        to feed to NN later
+        '''
+        return self.text.values, self.label.values
+
     def __len__(self):
         return len(self.train_df.text)
 
@@ -46,6 +53,6 @@ class BertDataset:
                 'targets': torch.tensor(self.label[idx], dtype=torch.float) } 
 
 
-#bd = BertDataset()
-#print(bd.__getitem__(2))
+bd = BertDataset()
+print(bd._getdata())
 
