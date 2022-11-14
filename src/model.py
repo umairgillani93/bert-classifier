@@ -31,4 +31,3 @@ class BERTModel(nn.Module):
         output = self.out(bo)
 
         return output
-

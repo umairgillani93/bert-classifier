@@ -40,6 +40,7 @@ class BertDataset:
         inputs = self.tokenizer.encode_plus(text,
                                             None,
                                             max_length=self.max_len,
+                                            truncation = True,
                                             pad_to_max_length=True)
 
         #print(f'\nType: {type(inputs)}')

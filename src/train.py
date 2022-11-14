@@ -53,6 +53,11 @@ def run():
 
     # initiate model
     model = BERTModel()
+
+    # Freze model parameters 
+    #for p in model.parameters():
+    #    p.requires_grad = False
+        
     model.to(device)
 
     param_optimizer = list(model.named_parameters())

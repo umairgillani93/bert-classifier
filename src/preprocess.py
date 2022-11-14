@@ -9,8 +9,10 @@ class Preprocess:
         self.train_df.drop([col for col in self.train_df.columns if \
                                 col not in self.cols], axis=1, inplace=True)
 
-        #print(self.train_df.columns)
+        print(self.train_df)
         self.text = self.train_df.text
         self.label = self.train_df.label
 
+
+pp = Preprocess()
 
