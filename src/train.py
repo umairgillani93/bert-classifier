@@ -13,6 +13,8 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 from transformers import AdamW
 from transformers import get_linear_schedule_with_warmup
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def run():
