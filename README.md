@@ -1,1 +1,1 @@
-Fake news detector using BERT with Pytorch.
+Fake news detector using Transformers with Pytorch.
