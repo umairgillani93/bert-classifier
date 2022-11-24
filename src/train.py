@@ -53,6 +53,7 @@ def run():
 
     # initiate model
     model = BERTModel()
+    model.to(device)
 
     # Freze model parameters 
     #for p in model.parameters():
@@ -75,6 +76,8 @@ def run():
             ]
 
     num_train_steps = int(len(df_train) / config.TRAIN_BATCH_SIZE * config.EPOCHS)
+
+
     print(f'\nTraining steps: {num_train_steps}')
     optim = torch.optim.AdamW(model.parameters(), lr=3e-5)
     schedular = get_linear_schedule_with_warmup(
@@ -82,9 +85,10 @@ def run():
 
     best_acc = 0
     for epoch in range(config.EPOCHS):
-        print(' >> Trainnig model .. ')
+        print('\n\n')
+        print(f' >> Training on device: {config.DEVICE}') 
         utils.train_fn(train_data_loader, model, optim, device, schedular)
-        outputs, targets = engine.eval_fn(train_data_loader, model, device)
+        outputs, targets = utils.eval_fn(train_data_loader, model, device)
         outputs = np.array(outputs) >= 0.5
         accuracy = metrics.accuracy_score(targets, outputs)
         print(f'Accuracy score: {accuracy}')

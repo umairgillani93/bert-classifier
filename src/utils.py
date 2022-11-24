@@ -24,6 +24,11 @@ def train_fn(data_loader, model,
         mask = data['mask']
         targets =  data['targets']
 
+        ids = ids.to(device, dtype=torch.long)
+        token_type_ids = token_type_ids.to(device, dtype=torch.long)
+        mask = mask.to(device, dtype=torch.long)
+        targets = targets.to(device, dtype=torch.float)
+
         # set all the  parameters to device
         # lets just skip this section for now
         # as we are already operating on CPU device
@@ -58,18 +63,23 @@ def eval_fn(data_loader, model, device):
             token_type_ids = data['token_type_ids']
             mask = data['mask']
             targets =  data['targets']
+
+            ids = ids.to(device, dtype=torch.long)
+            token_type_ids = token_type_ids.to(device, dtype=torch.long)
+            mask = mask.to(device, dtype=torch.long)
+            targets = targets.to(device, dtype=torch.float)
             
             #  Set everything to device later
             
             # extract the outputs
             outputs = model(
                     ids = ids,
-                    mask = mask,
+                    attention_mask = mask,
                     token_type_ids = token_type_ids
                     )
 
-            fin_targets.extend(targets.cpu().detech().numpy().tolist())
-            fin_outputs.extend(torch.sigmoid(outputs).cpu().detech().numpy().tolist())
+            fin_targets.extend(targets.cpu().detach().numpy().tolist())
+            fin_outputs.extend(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
 
     return fin_outputs, fin_targets
             
